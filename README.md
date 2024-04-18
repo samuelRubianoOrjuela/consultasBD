@@ -302,7 +302,7 @@
    LIMIT 3;
    ```
    | nombre       | presupuesto |
-   +--------------+-------------+
+   |--------------|-------------|
    | Proyectos    |           0 |
    | Publicidad   |           0 |
    | Contabilidad |      110000 |
@@ -577,5 +577,181 @@ Resuelva todas las consultas utilizando las cláusulas LEFT JOIN y RIGHT JOIN.
 ---
 5. Devuelve un listado con los empleados que no tienen ningún departamento asociado y los departamentos que no tienen ningún empleado asociado. Ordene el listado alfabéticamente por el nombre del departamento.
    ```sql
+   SELECT 'Empleado' AS tipo, e.id AS id_empleado, e.nif, e.nombre AS nombre_empleado, e.apellido1, e.apellido2, e.id_departamento AS id_departamento_empleado, NULL AS id_departamento, NULL AS nombre_departamento,NULL AS presupuesto
+   FROM empleado e
+   LEFT JOIN departamento d ON e.id_departamento = d.id
+   WHERE e.id_departamento IS NULL
+   UNION
+   SELECT 'Departamento' AS tipo, NULL AS id_empleado, NULL AS nif, NULL AS nombre_empleado, NULL AS apellido1, NULL AS apellido2, NULL AS id_departamento_empleado, d.id AS id_departamento, d.nombre AS nombre_departamento, d.presupuesto
+   FROM departamento d
+   LEFT JOIN empleado e ON d.id = e.id_departamento
+   WHERE e.id IS NULL
+   ORDER BY nombre_departamento;
+   ```
+---
+
+### Consultas resumen
+---
+
+1. Calcula la suma del presupuesto de todos los departamentos.
+   ```sql
+   SELECT SUM(presupuesto) AS presupuesto_total
+   FROM departamento;
+   ```
+---
+2. Calcula la media del presupuesto de todos los departamentos.
+   ```sql
+   SELECT SUM(presupuesto) / COUNT(id) AS media_presupuesto
+   FROM departamento;
+   ```
+---
+3. Calcula el valor mínimo del presupuesto de todos los departamentos.
+   ```sql
+   SELECT MIN(presupuesto) AS presupuesto_minimo
+   FROM departamento;
+   ```
+---
+4. Calcula el nombre del departamento y el presupuesto que tiene asignado, del departamento con menor presupuesto.
+   ```sql
+   SELECT nombre, presupuesto
+   FROM departamento
+   ORDER BY presupuesto
+   LIMIT 1;
+   ```
+---
+5. Calcula el valor máximo del presupuesto de todos los departamentos.
+   ```sql
+   SELECT MAX(presupuesto) AS presupuesto_minimo
+   FROM departamento;
+   ```
+---
+6. Calcula el nombre del departamento y el presupuesto que tiene asignado, del departamento con mayor presupuesto.
+   ```sql
+   SELECT nombre, presupuesto
+   FROM departamento
+   ORDER BY presupuesto DESC
+   LIMIT 1;
+   ```
+---
+7. Calcula el número total de empleados que hay en la tabla empleado.
+   ```sql
+   SELECT COUNT(id) AS total_empleados
+   FROM empleado
+   ```
+---
+8. Calcula el número de empleados que no tienen NULL en su segundo apellido.
+   ```sql
+   SELECT COUNT(id) AS total_empleados
+   FROM empleado
+   WHERE apellido2 IS NOT NULL;
+   ```
+---
+9. Calcula el número de empleados que hay en cada departamento. Tienes que devolver dos columnas, una con el nombre del departamento y otra con el número de empleados que tiene asignados.
+   ```sql
+   SELECT d.nombre AS nombre_departamento, COUNT(e.id) AS numero_empleados
+   FROM departamento d
+   LEFT JOIN empleado e ON d.id = e.id_departamento
+   GROUP BY d.nombre;
+   ```
+---
+10. Calcula el nombre de los departamentos que tienen más de 2 empleados. El resultado debe tener dos columnas, una con el nombre del departamento y otra con el número de empleados que tiene asignados.
+   ```sql
+   SELECT d.nombre AS nombre_departamento, COUNT(e.id) AS numero_empleados
+   FROM departamento d
+   LEFT JOIN empleado e ON d.id = e.id_departamento
+   GROUP BY d.nombre
+   HAVING COUNT(e.id) > 2;
+   ```
+---
+11. Calcula el número de empleados que trabajan en cada uno de los departamentos. El resultado de esta consulta también tiene que incluir aquellos departamentos que no tienen ningún empleado asociado.
+   ```sql
+   SELECT d.nombre AS nombre_departamento, COUNT(e.id) AS numero_empleados
+   FROM departamento d
+   LEFT JOIN empleado e ON d.id = e.id_departamento
+   GROUP BY d.nombre;
+   ```
+---
+12. Calcula el número de empleados que trabajan en cada unos de los departamentos que tienen un presupuesto mayor a 200000 euros.
+   ```sql
+   SELECT d.nombre AS nombre_departamento, COUNT(e.id) AS numero_empleados
+   FROM departamento d
+   LEFT JOIN empleado e ON d.id = e.id_departamento
+   WHERE d.presupuesto > 200000
+   GROUP BY d.nombre;
+   ```
+---
+
+### Subconsultas
+
+**Con operadores básicos de comparación**
+---
+1. Devuelve un listado con todos los empleados que tiene el departamento de Sistemas. (Sin utilizar INNER JOIN).
+   ```sql
+   SELECT id, nif, nombre, apellido1, apellido2, id_departamento
+   FROM empleado
+   WHERE id_departamento = (SELECT id FROM departamento WHERE nombre = 'Sistemas');
+   ```
+---
+2. Devuelve el nombre del departamento con mayor presupuesto y la cantidad que tiene asignada.
+   ```sql
+   SELECT nombre, presupuesto
+   FROM departamento
+   WHERE presupuesto = (SELECT presupuesto FROM departamento ORDER BY presupuesto DESC LIMIT 1);
+   ```
+---
+3. Devuelve el nombre del departamento con menor presupuesto y la cantidad que tiene asignada.
+   ```sql
+   SELECT nombre, presupuesto
+   FROM departamento
+   WHERE presupuesto = (SELECT presupuesto FROM departamento ORDER BY presupuesto ASC LIMIT 1)
+   LIMIT 1;
+   ```
+---
+**Subconsultas con ALL y ANY**
+4. Devuelve el nombre del departamento con mayor presupuesto y la cantidad que tiene asignada. Sin hacer uso de MAX, ORDER BY ni LIMIT.
+   ```sql
+   SELECT nombre, presupuesto
+   FROM departamento
+   WHERE presupuesto >= ALL (SELECT presupuesto FROM departamento);
+   ```
+---
+5. Devuelve el nombre del departamento con menor presupuesto y la cantidad que tiene asignada. Sin hacer uso de MIN, ORDER BY ni LIMIT.
+   ```sql
+   SELECT nombre, presupuesto
+   FROM departamento
+   WHERE presupuesto <= ALL (SELECT presupuesto FROM departamento)
+   LIMIT 1;
+   ```
+---
+6. Devuelve los nombres de los departamentos que tienen empleados asociados. (Utilizando ALL o ANY).
+   ```sql
+   
+   ```
+---
+7. Devuelve los nombres de los departamentos que no tienen empleados asociados. (Utilizando ALL o ANY).
+   ```sql
+   
+   ```
+---
+**Subconsultas con IN y NOT IN**
+8. Devuelve los nombres de los departamentos que tienen empleados asociados. (Utilizando IN o NOT IN).
+   ```sql
+   
+   ```
+---
+9. Devuelve los nombres de los departamentos que no tienen empleados asociados. (Utilizando IN o NOT IN).
+   ```sql
+   
+   ```
+---
+**Subconsultas con EXISTS y NOT EXISTS**
+10. Devuelve los nombres de los departamentos que tienen empleados asociados. (Utilizando EXISTS o NOT EXISTS).
+   ```sql
+   
+   ```
+---
+11. Devuelve los nombres de los departamentos que tienen empleados asociados. (Utilizando EXISTS o NOT EXISTS).
+   ```sql
+   
    ```
 ---
