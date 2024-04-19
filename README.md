@@ -1310,7 +1310,7 @@ Resuelva todas las consultas utilizando las cláusulas LEFT JOIN y RIGHT JOIN.
 **Subconsultas con EXISTS y NOT EXISTS**
 
 10. Devuelve los nombres de los departamentos que tienen empleados asociados. (Utilizando EXISTS o NOT EXISTS).
-      ```sql
+   ```sql
    SELECT nombre
    FROM departamento d
    WHERE EXISTS (
