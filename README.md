@@ -6,7 +6,7 @@
 
    ```sql
    SELECT apellido1 FROM empleado;
-
+   
    +-----------+
    | apellido1 |
    +-----------+
@@ -30,7 +30,7 @@
 2. Lista el primer apellido de los empleados eliminando los apellidos que estén repetidos.
    ```sql
    SELECT DISTINCT apellido1 FROM empleado;
-
+   
    +-----------+
    | apellido1 |
    +-----------+
@@ -52,7 +52,7 @@
 3. Lista todas las columnas de la tabla empleado.
    ```sql
    SELECT id, nif, nombre, apellido1, apellido2, id_departamento FROM empleado;
-
+   
    +----+-----------+--------------+-----------+-----------+-----------------+
    | id | nif       | nombre       | apellido1 | apellido2 | id_departamento |
    +----+-----------+--------------+-----------+-----------+-----------------+
@@ -75,7 +75,7 @@
 4. Lista el nombre y los apellidos de todos los empleados.
    ```sql
    SELECT nombre, apellido1, apellido2 FROM empleado;
-
+   
    +--------------+-----------+-----------+
    | nombre       | apellido1 | apellido2 |
    +--------------+-----------+-----------+
@@ -99,7 +99,7 @@
 5. Lista el identificador de los departamentos de los empleados que aparecen en la tabla empleado.
    ```sql
    SELECT id_departamento FROM empleado;
-
+   
    +-----------------+
    | id_departamento |
    +-----------------+
@@ -122,7 +122,7 @@
 6. Lista el identificador de los departamentos de los empleados que aparecen en la tabla empleado, eliminando los identificadores que aparecen repetidos.
    ```sql
    SELECT DISTINCT id_departamento FROM empleado;
-
+   
    +-----------------+
    | id_departamento |
    +-----------------+
@@ -138,7 +138,7 @@
 7. Lista el nombre y apellidos de los empleados en una única columna.
    ```sql
    SELECT CONCAT(nombre, ' ', apellido1, ' ', apellido2) AS nombre_completo FROM empleado;
-
+   
    +----------------------------+
    | nombre_completo            |
    +----------------------------+
@@ -162,7 +162,7 @@
 8. Lista el nombre y apellidos de los empleados en una única columna, convirtiendo todos los caracteres en mayúscula.
    ```sql
    SELECT UPPER(CONCAT(nombre, ' ', apellido1, ' ', apellido2)) AS nombre_completo FROM empleado;
-
+   
    +----------------------------+
    | nombre_completo            |
    +----------------------------+
@@ -185,7 +185,7 @@
 9. Lista el nombre y apellidos de los empleados en una única columna, convirtiendo todos los caracteres en minúscula.
    ```sql
    SELECT LOWER(CONCAT(nombre, ' ', apellido1, ' ', apellido2)) AS nombre_completo FROM empleado;
-
+   
    +----------------------------+
    | nombre_completo            |
    +----------------------------+
@@ -683,7 +683,7 @@ Resuelva todas las consultas utilizando la sintaxis de SQL1 y SQL2.
    SELECT e.id, e.nif, e.nombre, e.apellido1, e.apellido2, d.id AS id_departamento, d.nombre AS nombre_departamento, d.presupuesto, d.gastos
    FROM empleado e, departamento d
    WHERE e.id = d.id;
-
+   
    +----+-----------+--------+-----------+-----------+-----------------+---------------------+-------------+--------+
    | id | nif       | nombre | apellido1 | apellido2 | id_departamento | nombre_departamento | presupuesto | gastos |
    +----+-----------+--------+-----------+-----------+-----------------+---------------------+-------------+--------+
@@ -702,7 +702,7 @@ Resuelva todas las consultas utilizando la sintaxis de SQL1 y SQL2.
    SELECT d.nombre AS nombre_departamento, e.apellido1, e.apellido2, e.nombre
    FROM empleado e, departamento d
    WHERE e.id = d.id;
-
+   
    +---------------------+-----------+-----------+--------+
    | nombre_departamento | apellido1 | apellido2 | nombre |
    +---------------------+-----------+-----------+--------+
@@ -722,7 +722,7 @@ Resuelva todas las consultas utilizando la sintaxis de SQL1 y SQL2.
    FROM departamento d
    INNER JOIN empleado e ON d.id = e.id_departamento
    GROUP BY id_departamento, nombre_departamento;
-
+   
    +-----------------+---------------------+
    | id_departamento | nombre_departamento |
    +-----------------+---------------------+
@@ -744,7 +744,7 @@ Resuelva todas las consultas utilizando la sintaxis de SQL1 y SQL2.
    FROM departamento d
    INNER JOIN empleado e ON d.id = e.id_departamento
    GROUP BY id_departamento, nombre_departamento;
-
+   
    +-----------------+---------------------+--------------------+
    | id_departamento | nombre_departamento | presupuesto_actual |
    +-----------------+---------------------+--------------------+
@@ -762,7 +762,7 @@ Resuelva todas las consultas utilizando la sintaxis de SQL1 y SQL2.
    FROM departamento d
    INNER JOIN empleado e ON d.id = e.id_departamento
    WHERE e.nif = '38382980M';
-
+   
    +---------------------+
    | nombre_departamento |
    +---------------------+
@@ -777,7 +777,7 @@ Resuelva todas las consultas utilizando la sintaxis de SQL1 y SQL2.
    FROM departamento d
    INNER JOIN empleado e ON d.id = e.id_departamento
    WHERE e.nombre = 'Pepe' AND e.apellido1 = 'Ruiz' AND e.apellido2 = 'Santana';
-
+   
    +---------------------+
    | nombre_departamento |
    +---------------------+
@@ -792,7 +792,7 @@ Resuelva todas las consultas utilizando la sintaxis de SQL1 y SQL2.
    INNER JOIN empleado e ON d.id = e.id_departamento
    WHERE e.id_departamento = 5
    ORDER BY e.nombre ASC;
-
+   
    +----+-----------+--------+-----------+-----------+-----------------+
    | id | nif       | nombre | apellido1 | apellido2 | id_departamento |
    +----+-----------+--------+-----------+-----------+-----------------+
@@ -809,7 +809,7 @@ Resuelva todas las consultas utilizando la sintaxis de SQL1 y SQL2.
    INNER JOIN empleado e ON d.id = e.id_departamento
    WHERE e.id_departamento = 2 OR e.id_departamento = 4 OR e.id_departamento = 5 
    ORDER BY e.nombre ASC;
-
+   
    +----+-----------+--------+-----------+-----------+-----------------+
    | id | nif       | nombre | apellido1 | apellido2 | id_departamento |
    +----+-----------+--------+-----------+-----------+-----------------+
@@ -829,7 +829,7 @@ Resuelva todas las consultas utilizando la sintaxis de SQL1 y SQL2.
    FROM empleado e
    INNER JOIN departamento d ON d.id = e.id_departamento
    WHERE d.presupuesto NOT BETWEEN 100000 AND 200000;
-
+   
    +--------+
    | nombre |
    +--------+
@@ -866,7 +866,7 @@ Resuelva todas las consultas utilizando las cláusulas LEFT JOIN y RIGHT JOIN.
    d.nombre AS nombre_departamento, d.presupuesto, d.gastos
    FROM empleado e
    LEFT JOIN departamento d ON e.id_departamento = d.id;
-
+   
    +----+-----------+--------------+-----------+-----------+-----------------+---------------------+-------------+--------+
    | id | nif       | nombre       | apellido1 | apellido2 | id_departamento | nombre_departamento | presupuesto | gastos |
    +----+-----------+--------------+-----------+-----------+-----------------+---------------------+-------------+--------+
@@ -892,7 +892,7 @@ Resuelva todas las consultas utilizando las cláusulas LEFT JOIN y RIGHT JOIN.
    FROM empleado e
    LEFT JOIN departamento d ON e.id_departamento = d.id
    WHERE e.id_departamento IS NULL;
-
+   
    +----+-----------+--------------+-----------+-----------+-----------------+
    | id | nif       | nombre       | apellido1 | apellido2 | id_departamento |
    +----+-----------+--------------+-----------+-----------+-----------------+
@@ -907,7 +907,7 @@ Resuelva todas las consultas utilizando las cláusulas LEFT JOIN y RIGHT JOIN.
    FROM departamento d
    LEFT JOIN empleado e ON d.id = e.id_departamento
    WHERE e.id_departamento IS NULL;
-
+   
    +----+------------+-------------+
    | id | nombre     | presupuesto |
    +----+------------+-------------+
@@ -930,7 +930,7 @@ Resuelva todas las consultas utilizando las cláusulas LEFT JOIN y RIGHT JOIN.
    FROM departamento d
    WHERE NOT EXISTS (SELECT 1 FROM empleado WHERE id_departamento = d.id)
    ORDER BY nombre_departamento;
-
+   
    +------+-----------+--------------+-----------+-----------+-----------------+---------------------+
    | id   | nif       | nombre       | apellido1 | apellido2 | id_departamento | nombre_departamento |
    +------+-----------+--------------+-----------+-----------+-----------------+---------------------+
@@ -966,7 +966,7 @@ Resuelva todas las consultas utilizando las cláusulas LEFT JOIN y RIGHT JOIN.
    LEFT JOIN empleado e ON d.id = e.id_departamento
    WHERE e.id IS NULL
    ORDER BY nombre_departamento;
-
+   
    +--------------+-------------+-----------+-----------------+-----------+-----------+--------------------------+-----------------+---------------------+-------------+
    | tipo         | id_empleado | nif       | nombre_empleado | apellido1 | apellido2 | id_departamento_empleado | id_departamento | nombre_departamento | presupuesto |
    +--------------+-------------+-----------+-----------------+-----------+-----------+--------------------------+-----------------+---------------------+-------------+
@@ -985,7 +985,7 @@ Resuelva todas las consultas utilizando las cláusulas LEFT JOIN y RIGHT JOIN.
    ```sql
    SELECT SUM(presupuesto) AS presupuesto_total
    FROM departamento;
-
+   
    +-------------------+
    | presupuesto_total |
    +-------------------+
@@ -997,7 +997,7 @@ Resuelva todas las consultas utilizando las cláusulas LEFT JOIN y RIGHT JOIN.
    ```sql
    SELECT SUM(presupuesto) / COUNT(id) AS media_presupuesto
    FROM departamento;
-
+   
    +--------------------+
    | media_presupuesto  |
    +--------------------+
@@ -1009,7 +1009,7 @@ Resuelva todas las consultas utilizando las cláusulas LEFT JOIN y RIGHT JOIN.
    ```sql
    SELECT MIN(presupuesto) AS presupuesto_minimo
    FROM departamento;
-
+   
    +--------------------+
    | presupuesto_minimo |
    +--------------------+
@@ -1023,7 +1023,7 @@ Resuelva todas las consultas utilizando las cláusulas LEFT JOIN y RIGHT JOIN.
    FROM departamento
    ORDER BY presupuesto
    LIMIT 1;
-
+   
    +-----------+-------------+
    | nombre    | presupuesto |
    +-----------+-------------+
@@ -1035,7 +1035,7 @@ Resuelva todas las consultas utilizando las cláusulas LEFT JOIN y RIGHT JOIN.
    ```sql
    SELECT MAX(presupuesto) AS presupuesto_minimo
    FROM departamento;
-
+   
    +--------------------+
    | presupuesto_minimo |
    +--------------------+
@@ -1049,7 +1049,7 @@ Resuelva todas las consultas utilizando las cláusulas LEFT JOIN y RIGHT JOIN.
    FROM departamento
    ORDER BY presupuesto DESC
    LIMIT 1;
-
+   
    +--------+-------------+
    | nombre | presupuesto |
    +--------+-------------+
@@ -1061,7 +1061,7 @@ Resuelva todas las consultas utilizando las cláusulas LEFT JOIN y RIGHT JOIN.
    ```sql
    SELECT COUNT(id) AS total_empleados
    FROM empleado;
-
+   
    +-----------------+
    | total_empleados |
    +-----------------+
@@ -1074,7 +1074,7 @@ Resuelva todas las consultas utilizando las cláusulas LEFT JOIN y RIGHT JOIN.
    SELECT COUNT(id) AS total_empleados
    FROM empleado
    WHERE apellido2 IS NOT NULL;
-
+   
    +-----------------+
    | total_empleados |
    +-----------------+
@@ -1088,7 +1088,7 @@ Resuelva todas las consultas utilizando las cláusulas LEFT JOIN y RIGHT JOIN.
    FROM departamento d
    LEFT JOIN empleado e ON d.id = e.id_departamento
    GROUP BY d.nombre;
-
+   
    +---------------------+------------------+
    | nombre_departamento | numero_empleados |
    +---------------------+------------------+
@@ -1165,7 +1165,7 @@ Resuelva todas las consultas utilizando las cláusulas LEFT JOIN y RIGHT JOIN.
    SELECT id, nif, nombre, apellido1, apellido2, id_departamento
    FROM empleado
    WHERE id_departamento = (SELECT id FROM departamento WHERE nombre = 'Sistemas');
-
+   
    +----+-----------+--------+-----------+-----------+-----------------+
    | id | nif       | nombre | apellido1 | apellido2 | id_departamento |
    +----+-----------+--------+-----------+-----------+-----------------+
@@ -1194,7 +1194,7 @@ Resuelva todas las consultas utilizando las cláusulas LEFT JOIN y RIGHT JOIN.
    FROM departamento
    WHERE presupuesto = (SELECT presupuesto FROM departamento ORDER BY presupuesto ASC LIMIT 1)
    LIMIT 1;
-
+   
    +-----------+-------------+
    | nombre    | presupuesto |
    +-----------+-------------+
@@ -1209,7 +1209,7 @@ Resuelva todas las consultas utilizando las cláusulas LEFT JOIN y RIGHT JOIN.
    SELECT nombre, presupuesto
    FROM departamento
    WHERE presupuesto >= ALL (SELECT presupuesto FROM departamento);
-
+   
    +--------+-------------+
    | nombre | presupuesto |
    +--------+-------------+
@@ -1223,7 +1223,7 @@ Resuelva todas las consultas utilizando las cláusulas LEFT JOIN y RIGHT JOIN.
    FROM departamento
    WHERE presupuesto <= ALL (SELECT presupuesto FROM departamento)
    LIMIT 1;
-
+   
    +-----------+-------------+
    | nombre    | presupuesto |
    +-----------+-------------+
@@ -1239,7 +1239,7 @@ Resuelva todas las consultas utilizando las cláusulas LEFT JOIN y RIGHT JOIN.
       SELECT id_departamento
       FROM empleado
    );
-
+   
    +------------------+
    | nombre           |
    +------------------+
@@ -1259,7 +1259,7 @@ Resuelva todas las consultas utilizando las cláusulas LEFT JOIN y RIGHT JOIN.
       SELECT id_departamento
       FROM empleado
    );
-
+   
    +------------+
    | nombre     |
    +------------+
@@ -1278,7 +1278,7 @@ Resuelva todas las consultas utilizando las cláusulas LEFT JOIN y RIGHT JOIN.
       SELECT id_departamento
       FROM empleado
    );
-
+   
    +------------------+
    | nombre           |
    +------------------+
@@ -1298,7 +1298,7 @@ Resuelva todas las consultas utilizando las cláusulas LEFT JOIN y RIGHT JOIN.
       SELECT id_departamento
       FROM empleado
    );
-
+   
    +------------+
    | nombre     |
    +------------+
@@ -1327,7 +1327,7 @@ Resuelva todas las consultas utilizando las cláusulas LEFT JOIN y RIGHT JOIN.
    | Contabilidad     |
    | I+D              |
    +------------------+
-      ```
+   ```
 ---
 11. Devuelve los nombres de los departamentos que tienen empleados asociados. (Utilizando EXISTS o NOT EXISTS).
    ```sql
